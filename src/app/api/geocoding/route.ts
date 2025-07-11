@@ -76,9 +76,10 @@ const locationDatabase = [
 ]
 
 export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url)
+  const query = searchParams.get('query')
+  
   try {
-    const { searchParams } = new URL(request.url)
-    const query = searchParams.get('query')
     
     if (!query) {
       return NextResponse.json(
@@ -145,8 +146,10 @@ export async function GET(request: NextRequest) {
 
     // 로컬 데이터베이스에서 검색 (부분 매칭)
     const localResults = locationDatabase.filter(location => 
-      location.name.toLowerCase().includes(query.toLowerCase()) ||
-      location.roadAddress.toLowerCase().includes(query.toLowerCase())
+      query && (
+        location.name.toLowerCase().includes(query.toLowerCase()) ||
+        location.roadAddress.toLowerCase().includes(query.toLowerCase())
+      )
     )
 
     if (localResults.length > 0) {
