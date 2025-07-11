@@ -1,0 +1,193 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 사용자 모델 (단순화)
+model User {
+  id         String   @id @default(cuid())
+  email      String   @unique
+  name       String
+  password   String
+  role       UserRole @default(USER)
+  isBusker   Boolean  @default(false)  // 버스커 여부
+  isBusiness Boolean  @default(false)  // 자영업자 여부
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // 관계
+  buskingEvents     BuskingEvent[]
+  communityEvents   CommunityEvent[]
+  lessonEvents      LessonEvent[]
+  realtimeEvents    RealtimeEvent[]
+  nayogiEvents      NayogiEvent[]
+  businesses        Business[]
+  posts             Post[]
+}
+
+// 사용자 권한 (단순화)
+enum UserRole {
+  ADMIN  // 관리자 (모든 권한)
+  USER   // 일반회원 (기본 권한)
+}
+
+// 게시글 카테고리
+enum PostCategory {
+  BUSKING
+  COMMUNITY
+  LESSON
+  EVENT
+  NAYOGI
+  GARDEN
+}
+
+// 버스킹 이벤트
+model BuskingEvent {
+  id          String   @id @default(cuid())
+  name        String
+  dateTime    DateTime
+  description String
+  imageUrl    String?
+  latitude    Float
+  longitude   Float
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// 커뮤니티 모임
+model CommunityEvent {
+  id          String   @id @default(cuid())
+  name        String
+  dateTime    DateTime
+  description String
+  imageUrl    String?
+  latitude    Float
+  longitude   Float
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// 레슨
+model LessonEvent {
+  id          String   @id @default(cuid())
+  name        String
+  category    String   // 레슨 종목
+  description String
+  imageUrl    String?
+  latitude    Float
+  longitude   Float
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// 자영업자 매장
+model Business {
+  id          String   @id @default(cuid())
+  name        String   // 상호명
+  address     String   // 주소
+  latitude    Float
+  longitude   Float
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  realtimeEvents RealtimeEvent[]
+
+  @@unique([name, address]) // 상호명 + 주소 중복 방지
+}
+
+// 실시간 이벤트
+model RealtimeEvent {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  imageUrl    String?
+  startDate   DateTime
+  endDate     DateTime
+  businessId  String
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// 나요기 (24시간 소멸)
+model NayogiEvent {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  imageUrl    String?
+  latitude    Float
+  longitude   Float
+  userId      String
+  expiresAt   DateTime // 24시간 후 만료
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// 공유텃밭 (관리자만 등록)
+model Garden {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  imageUrl    String?
+  linkUrl     String? // 관련링크 (블로그/인스타 등)
+  latitude    Float
+  longitude   Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// 핫스팟 (관리자만 등록)
+model Hotspot {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  imageUrl    String?
+  linkUrl     String? // 블로그/인스타 링크
+  latitude    Float
+  longitude   Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// 게시판 (통합)
+model Post {
+  id        String      @id @default(cuid())
+  title     String
+  content   String
+  category  PostCategory
+  userId    String
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([category, createdAt])
+  @@index([userId])
+  @@index([createdAt])
+}
