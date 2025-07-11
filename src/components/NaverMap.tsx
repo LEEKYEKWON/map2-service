@@ -184,7 +184,7 @@ export default function NaverMap({
 
       const script = document.createElement('script')
       script.id = 'naver-map-script'
-      script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${process.env.NEXT_PUBLIC_NAVER_CLIENT_ID}`
+      script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${process.env.NEXT_PUBLIC_NAVER_CLIENT_ID || '6xglqifxeg'}`
       script.async = true
       
       script.onload = () => {
