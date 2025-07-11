@@ -8,6 +8,7 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const resolvedParams = await params
     const { title, content, category, email } = await request.json()
 
     // 필수 필드 검증
@@ -32,7 +33,7 @@ export async function PUT(
 
     // 게시글 확인 및 권한 체크
     const existingPost = await prisma.post.findUnique({
-      where: { id: params.id }
+      where: { id: resolvedParams.id }
     })
 
     if (!existingPost) {
@@ -51,7 +52,7 @@ export async function PUT(
 
     // 게시글 수정
     const updatedPost = await prisma.post.update({
-      where: { id: params.id },
+      where: { id: resolvedParams.id },
       data: {
         title,
         content,
@@ -83,6 +84,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const resolvedParams = await params
     const { searchParams } = new URL(request.url)
     const email = searchParams.get('email')
 
@@ -107,7 +109,7 @@ export async function DELETE(
 
     // 게시글 확인 및 권한 체크
     const existingPost = await prisma.post.findUnique({
-      where: { id: params.id }
+      where: { id: resolvedParams.id }
     })
 
     if (!existingPost) {
@@ -126,7 +128,7 @@ export async function DELETE(
 
     // 게시글 삭제
     await prisma.post.delete({
-      where: { id: params.id }
+      where: { id: resolvedParams.id }
     })
 
     return NextResponse.json({ message: '게시글이 삭제되었습니다.' })
