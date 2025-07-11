@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import Link from 'next/link'
 import { useAuth } from '@/contexts/AuthContext'
-import MockMap from '@/components/MockMap'
+import NaverMap from '@/components/NaverMap'
 import PostBoard from '@/components/PostBoard'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -388,10 +388,16 @@ export default function BuskingPage() {
                 )}
               </div>
               
-              <MockMap
+              <NaverMap
                 markers={mapMarkers}
                 onMapClick={handleMapClick}
+                onMarkerClick={handleMarkerClick}
                 selectedMarkerId={selectedEvent?.id || null}
+                moveToMarker={moveToMarker}
+                onMoveComplete={() => setMoveToMarker(null)}
+                tempMarker={tempMarker}
+                onTempMarkerClick={handleTempMarkerClick}
+                onSearchResultSelect={handleSearchResultSelect}
                 height="500px"
               />
 
