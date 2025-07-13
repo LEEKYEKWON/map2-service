@@ -15,8 +15,7 @@ export default function SignupPage() {
     password: '',
     confirmPassword: '',
     isBusker: false,
-    isBusiness: false,
-    isAdmin: false  // 임시 관리자 선택 옵션
+    isBusiness: false
   })
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -46,8 +45,7 @@ export default function SignupPage() {
           email: formData.email,
           password: formData.password,
           isBusker: formData.isBusker,
-          isBusiness: formData.isBusiness,
-          isAdmin: formData.isAdmin
+          isBusiness: formData.isBusiness
         })
       })
 
@@ -157,16 +155,6 @@ export default function SignupPage() {
                 className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
               />
               <span className="text-sm text-gray-700">자영업자입니다</span>
-            </label>
-
-            <label className="flex items-center space-x-3 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={formData.isAdmin}
-                onChange={(e) => setFormData({...formData, isAdmin: e.target.checked})}
-                className="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500"
-              />
-              <span className="text-sm text-red-700">관리자입니다 (테스트용)</span>
             </label>
           </div>
 

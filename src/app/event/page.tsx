@@ -319,37 +319,37 @@ export default function EventPage() {
         user: user?.name,
         userRole: user?.role,
         userIsBusiness: user?.isBusiness,
-        isBusiness, 
-        showBusinessForm, 
-        showEventForm,
-        '매장등록폼열림': showBusinessForm,
-        '이벤트등록폼열림': showEventForm 
-      })
+      isBusiness, 
+      showBusinessForm, 
+      showEventForm,
+      '매장등록폼열림': showBusinessForm,
+      '이벤트등록폼열림': showEventForm 
+    })
 
-      // 매장 등록 모드일 때만 임시 마커 생성
-      if (isBusiness && showBusinessForm && !showEventForm) {
-        console.log('✅ 임시 마커 생성 조건 충족!')
+    // 매장 등록 모드일 때만 임시 마커 생성
+    if (isBusiness && showBusinessForm && !showEventForm) {
+      console.log('✅ 임시 마커 생성 조건 충족!')
         console.log('🗺️ 임시마커 위치 설정:', { lat, lng })
-        setTempMarker({ lat, lng })
-        setBusinessFormData(prev => ({
-          ...prev,
-          latitude: lat,
-          longitude: lng
-        }))
-        setShowLocationGuide(true)
+      setTempMarker({ lat, lng })
+      setBusinessFormData(prev => ({
+        ...prev,
+        latitude: lat,
+        longitude: lng
+      }))
+      setShowLocationGuide(true)
         console.log('✅ 임시마커 생성 완료!')
-      } else {
-        console.log('❌ 임시 마커 생성 조건 불충족')
+    } else {
+      console.log('❌ 임시 마커 생성 조건 불충족')
         console.log('🔍 조건 체크:')
         console.log(`  - isBusiness: ${isBusiness} (user.isBusiness: ${user?.isBusiness}, user.role: ${user?.role})`)
         console.log(`  - showBusinessForm: ${showBusinessForm}`)
         console.log(`  - !showEventForm: ${!showEventForm}`)
         
-        if (!isBusiness) {
-          console.log('🚫 자영업자가 아닙니다.')
+      if (!isBusiness) {
+        console.log('🚫 자영업자가 아닙니다.')
           setError('자영업자만 매장을 등록할 수 있습니다.')
         } else if (!showBusinessForm) {
-          console.log('🚫 매장 등록 폼이 열려있지 않습니다.')
+        console.log('🚫 매장 등록 폼이 열려있지 않습니다.')
           console.log('🔧 매장 등록 폼을 자동으로 열겠습니다!')
           setShowBusinessForm(true)
           setShowEventForm(false)
@@ -363,10 +363,10 @@ export default function EventPage() {
           setShowLocationGuide(true)
           console.log('✅ 임시마커 생성 완료! (자동 폼 열기)')
         } else if (showEventForm) {
-          console.log('🚫 이벤트 등록 폼이 열려있습니다.')
+        console.log('🚫 이벤트 등록 폼이 열려있습니다.')
           setError('이벤트 등록 모드입니다. 매장 등록을 원한다면 "매장 등록" 버튼을 클릭해주세요.')
-        }
       }
+    }
     }, 100) // 100ms 지연으로 상태 업데이트 완료 대기
   }
 

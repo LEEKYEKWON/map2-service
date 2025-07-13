@@ -294,12 +294,12 @@ export default function CommunityPage() {
   // 마커 데이터 변환
   const mapMarkers = useMemo(() => {
     return filteredEvents.map(event => ({
-      id: event.id,
-      latitude: event.latitude,
-      longitude: event.longitude,
-      title: event.name,
-      content: event.description
-    }))
+    id: event.id,
+    latitude: event.latitude,
+    longitude: event.longitude,
+    title: event.name,
+    content: event.description
+  }))
   }, [filteredEvents])
 
   // 폼 데이터 업데이트 핸들러들을 메모이제이션
@@ -545,7 +545,7 @@ export default function CommunityPage() {
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-gray-900">
                   모임 목록 ({filteredEvents.length})
-                </h3>
+              </h3>
                 <button
                   onClick={togglePastEvents}
                   className="text-sm text-green-600 hover:text-green-800 transition-colors"
@@ -566,92 +566,92 @@ export default function CommunityPage() {
                   filteredEvents.map(event => {
                     const isPastEvent = dayjs(event.dateTime).isBefore(dayjs())
                     return (
-                      <div
-                        key={event.id}
-                        id={`event-${event.id}`}
-                        onClick={() => {
-                          setSelectedEvent(event)
-                          setMoveToMarker(event.id)
-                        }}
-                        className={`p-3 rounded-lg border cursor-pointer transition-all ${
-                          selectedEvent?.id === event.id
-                            ? 'border-green-500 bg-green-50'
-                            : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                    <div
+                      key={event.id}
+                      id={`event-${event.id}`}
+                      onClick={() => {
+                        setSelectedEvent(event)
+                        setMoveToMarker(event.id)
+                      }}
+                      className={`p-3 rounded-lg border cursor-pointer transition-all ${
+                        selectedEvent?.id === event.id
+                          ? 'border-green-500 bg-green-50'
+                          : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
                         } ${isPastEvent ? 'opacity-70' : ''}`}
-                      >
-                        <div className="flex justify-between items-start mb-2">
+                    >
+                      <div className="flex justify-between items-start mb-2">
                           <div className="flex items-center space-x-2">
-                            <h4 className="font-semibold text-gray-900 text-sm">{event.name}</h4>
+                        <h4 className="font-semibold text-gray-900 text-sm">{event.name}</h4>
                             {isPastEvent && (
                               <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
                                 종료
                               </span>
                             )}
                           </div>
-                          {user && (user.id === event.userId || user.role === 'ADMIN') && (
-                            <div className="flex space-x-1">
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation()
-                                  setSelectedEvent(event)
-                                  setFormData({
-                                    name: event.name,
-                                    dateTime: dayjs(event.dateTime).format('YYYY-MM-DDTHH:mm'),
-                                    description: event.description,
-                                    imageUrl: event.imageUrl || '',
-                                    latitude: event.latitude,
-                                    longitude: event.longitude
-                                  })
-                                  setShowForm(true)
-                                }}
-                                className="text-xs text-green-600 hover:text-green-800"
-                              >
-                                수정
-                              </button>
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation()
-                                  handleDelete(event.id)
-                                }}
-                                className="text-xs text-red-600 hover:text-red-800"
-                              >
-                                삭제
-                              </button>
-                            </div>
-                          )}
-                        </div>
-                        <p className="text-xs text-gray-600 mb-1">
-                          📅 {dayjs(event.dateTime).format('MM/DD HH:mm')}
-                        </p>
-                        <p className="text-xs text-gray-600 mb-1">
-                          👤 {event.user.name}
-                        </p>
-                        <div className="text-xs text-gray-500 line-clamp-2">
-                          {event.description.length > 50 ? (
-                            <div>
-                              <span>{event.description.substring(0, 50)}...</span>
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation()
-                                  alert(event.description)
-                                }}
-                                className="text-blue-600 hover:text-blue-800 font-medium ml-1"
-                              >
-                                자세히 보기
-                              </button>
-                            </div>
-                          ) : (
-                            event.description
-                          )}
-                        </div>
-                        {event.imageUrl && (
-                          <img
-                            src={event.imageUrl}
-                            alt={event.name}
-                            className="w-full h-32 object-cover rounded-lg mb-2"
-                          />
+                        {user && (user.id === event.userId || user.role === 'ADMIN') && (
+                          <div className="flex space-x-1">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                setSelectedEvent(event)
+                                setFormData({
+                                  name: event.name,
+                                  dateTime: dayjs(event.dateTime).format('YYYY-MM-DDTHH:mm'),
+                                  description: event.description,
+                                  imageUrl: event.imageUrl || '',
+                                  latitude: event.latitude,
+                                  longitude: event.longitude
+                                })
+                                setShowForm(true)
+                              }}
+                              className="text-xs text-green-600 hover:text-green-800"
+                            >
+                              수정
+                            </button>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                handleDelete(event.id)
+                              }}
+                              className="text-xs text-red-600 hover:text-red-800"
+                            >
+                              삭제
+                            </button>
+                          </div>
                         )}
                       </div>
+                      <p className="text-xs text-gray-600 mb-1">
+                        📅 {dayjs(event.dateTime).format('MM/DD HH:mm')}
+                      </p>
+                      <p className="text-xs text-gray-600 mb-1">
+                        👤 {event.user.name}
+                      </p>
+                      <div className="text-xs text-gray-500 line-clamp-2">
+                        {event.description.length > 50 ? (
+                          <div>
+                            <span>{event.description.substring(0, 50)}...</span>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                alert(event.description)
+                              }}
+                              className="text-blue-600 hover:text-blue-800 font-medium ml-1"
+                            >
+                              자세히 보기
+                            </button>
+                          </div>
+                        ) : (
+                          event.description
+                        )}
+                      </div>
+                      {event.imageUrl && (
+                        <img
+                          src={event.imageUrl}
+                          alt={event.name}
+                            className="w-full h-32 object-cover rounded-lg mb-2"
+                        />
+                      )}
+                    </div>
                     )
                   })
                 )}

@@ -172,9 +172,9 @@ export default function GardenPage() {
 
   // 임시 마커 클릭 핸들러
   const handleTempMarkerClick = () => {
-    setShowForm(true)
+      setShowForm(true)
     setTempMarker(null)
-    setShowLocationGuide(false)
+      setShowLocationGuide(false)
   }
 
   // 폼 취소
@@ -215,7 +215,7 @@ export default function GardenPage() {
       }
     }, 100)
   }
-
+  
   // 마커 데이터
   const mapMarkers = hotspots.map(item => ({
     id: item.id,
@@ -471,24 +471,24 @@ export default function GardenPage() {
                       )}
                       
                       {item.description && (
-                        <div className="text-xs text-gray-500 line-clamp-2 mb-2">
-                          {item.description.length > 50 ? (
-                            <div>
-                              <span>{item.description.substring(0, 50)}...</span>
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation()
-                                  alert(item.description)
-                                }}
-                                className="text-blue-600 hover:text-blue-800 font-medium ml-1"
-                              >
-                                자세히 보기
-                              </button>
-                            </div>
-                          ) : (
-                            item.description
-                          )}
-                        </div>
+                      <div className="text-xs text-gray-500 line-clamp-2 mb-2">
+                        {item.description.length > 50 ? (
+                          <div>
+                            <span>{item.description.substring(0, 50)}...</span>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                alert(item.description)
+                              }}
+                              className="text-blue-600 hover:text-blue-800 font-medium ml-1"
+                            >
+                              자세히 보기
+                            </button>
+                          </div>
+                        ) : (
+                          item.description
+                        )}
+                      </div>
                       )}
                       
                       {item.linkUrl && (
