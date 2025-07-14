@@ -371,7 +371,7 @@ export default function BuskingPage() {
               />
 
               {/* 위치 안내 메시지 */}
-              {showLocationGuide && tempMarker && (
+              {showLocationGuide && (
                 <div className="mt-4 bg-orange-50 border border-orange-200 rounded-lg p-4">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
@@ -385,30 +385,32 @@ export default function BuskingPage() {
                       </h3>
                       <div className="mt-2 text-sm text-orange-700">
                         <p>
-                          지도 아래 <strong>"+ 등록하기"</strong> 버튼을 클릭하거나 주황색 마커를 클릭하여 이벤트 정보를 입력해주세요.
+                          지도 아래 <strong>"여기에 등록하기"</strong> 버튼을 클릭하거나 주황색 마커를 클릭하여 이벤트 정보를 입력해주세요.
                         </p>
-                      </div>
-                      <div className="mt-3">
-                        <div className="flex">
-                          <button
-                            onClick={handleTempMarkerClick}
-                            className="bg-orange-600 text-white text-sm px-3 py-1 rounded hover:bg-orange-700 transition-colors mr-2"
-                          >
-                            여기에 등록하기
-                          </button>
-                          <button
-                            onClick={() => {
-                              setTempMarker(null)
-                              setShowLocationGuide(false)
-                            }}
-                            className="bg-gray-300 text-gray-700 text-sm px-3 py-1 rounded hover:bg-gray-400 transition-colors"
-                          >
-                            취소
-                          </button>
-                        </div>
                       </div>
                     </div>
                   </div>
+                </div>
+              )}
+
+              {/* 고정된 등록 버튼 */}
+              {showLocationGuide && (
+                <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex space-x-2">
+                  <button
+                    onClick={handleTempMarkerClick}
+                    className="bg-orange-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-orange-700 transition-colors font-medium"
+                  >
+                    여기에 등록하기
+                  </button>
+                  <button
+                    onClick={() => {
+                      setTempMarker(null)
+                      setShowLocationGuide(false)
+                    }}
+                    className="bg-gray-300 text-gray-700 px-6 py-3 rounded-full shadow-lg hover:bg-gray-400 transition-colors font-medium"
+                  >
+                    취소
+                  </button>
                 </div>
               )}
 

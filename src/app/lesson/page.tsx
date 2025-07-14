@@ -364,21 +364,25 @@ export default function LessonPage() {
                       <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
                       <span className="text-orange-800 font-medium">여기에 레슨을 등록하시겠어요?</span>
                     </div>
-                    <div className="flex space-x-2">
-                      <button
-                        onClick={handleTempMarkerClick}
-                        className="px-3 py-1 bg-orange-500 text-white text-sm rounded hover:bg-orange-600 transition-colors"
-                      >
-                        여기에 등록하기
-                      </button>
-                      <button
-                        onClick={() => setShowLocationGuide(false)}
-                        className="text-orange-600 hover:text-orange-800 text-sm"
-                      >
-                        ✕
-                      </button>
-                    </div>
                   </div>
+                </div>
+              )}
+
+              {/* 고정된 등록 버튼 */}
+              {showLocationGuide && (
+                <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex space-x-2">
+                  <button
+                    onClick={handleTempMarkerClick}
+                    className="bg-orange-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-orange-700 transition-colors font-medium"
+                  >
+                    여기에 등록하기
+                  </button>
+                  <button
+                    onClick={() => setShowLocationGuide(false)}
+                    className="bg-gray-300 text-gray-700 px-6 py-3 rounded-full shadow-lg hover:bg-gray-400 transition-colors font-medium"
+                  >
+                    취소
+                  </button>
                 </div>
               )}
 

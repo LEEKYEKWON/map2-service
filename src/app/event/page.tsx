@@ -640,16 +640,28 @@ export default function EventPage() {
                       <span className="text-yellow-600">📍</span>
                       <span className="text-sm text-yellow-700">여기에 매장을 등록하시겠어요?</span>
                     </div>
-                    <button
-                      onClick={() => {
-                        setShowLocationGuide(false)
-                        setTempMarker(null)
-                      }}
-                      className="text-yellow-400 hover:text-yellow-600"
-                    >
-                      ×
-                    </button>
                   </div>
+                </div>
+              )}
+
+              {/* 고정된 등록 버튼 */}
+              {showLocationGuide && tempMarker && (
+                <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex space-x-2">
+                  <button
+                    onClick={handleTempMarkerClick}
+                    className="bg-yellow-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-yellow-700 transition-colors font-medium"
+                  >
+                    여기에 등록하기
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowLocationGuide(false)
+                      setTempMarker(null)
+                    }}
+                    className="bg-gray-300 text-gray-700 px-6 py-3 rounded-full shadow-lg hover:bg-gray-400 transition-colors font-medium"
+                  >
+                    취소
+                  </button>
                 </div>
               )}
 
