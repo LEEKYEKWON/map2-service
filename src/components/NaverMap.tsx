@@ -254,10 +254,7 @@ export default function NaverMap({
         // 모바일 대응: tap 이벤트도 등록
         window.naver.maps.Event.addListener(naverMapRef.current, 'tap', (e: any) => {
           console.log('🗺️ 지도 탭(tap)됨!')
-          if (e.domEvent) {
-            e.domEvent.preventDefault()
-            e.domEvent.stopPropagation()
-          }
+          // 모바일 tap 이벤트는 preventDefault/stopPropagation을 호출하지 않음
           const lat = e.coord.lat()
           const lng = e.coord.lng()
           console.log('📍 탭 좌표:', { lat, lng })
