@@ -306,38 +306,7 @@ export default function BuskingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100">
-      {/* 헤더 */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-4">
-              <Link href="/" className="text-xl font-bold text-blue-600">Map2</Link>
-              <div className="text-gray-300">|</div>
-              <h1 className="text-xl font-semibold text-gray-900">버스킹</h1>
-            </div>
-            
-            {/* 상단 메뉴 */}
-            <nav className="hidden md:flex space-x-6">
-              <Link href="/busking" className="text-blue-600 font-medium border-b-2 border-blue-600 pb-1">버스킹</Link>
-              <Link href="/community" className="text-gray-600 hover:text-blue-600 transition-colors">커뮤니티</Link>
-              <Link href="/lesson" className="text-gray-600 hover:text-blue-600 transition-colors">레슨</Link>
-              <Link href="/event" className="text-gray-600 hover:text-blue-600 transition-colors">실시간이벤트</Link>
-              <Link href="/nayogi" className="text-gray-600 hover:text-blue-600 transition-colors">나요기</Link>
-              <Link href="/garden" className="text-gray-600 hover:text-blue-600 transition-colors">핫스팟</Link>
-            </nav>
-            
-            <div className="flex items-center space-x-4">
-              {user ? (
-                <span className="text-sm text-gray-600">안녕하세요, {user.name}님!</span>
-              ) : (
-                <Link href="/auth/login" className="text-blue-600 hover:text-blue-700">
-                  로그인
-                </Link>
-              )}
-            </div>
-          </div>
-        </div>
-      </header>
+      {/* 헤더 및 상단영역 전체 삭제 */}
 
       {/* 메인 컨텐츠 */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
