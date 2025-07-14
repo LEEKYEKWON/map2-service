@@ -251,6 +251,21 @@ export default function NaverMap({
           // 지도 이동 방지를 위해 return false
           return false
         })
+        // 모바일 대응: tap 이벤트도 등록
+        window.naver.maps.Event.addListener(naverMapRef.current, 'tap', (e: any) => {
+          console.log('🗺️ 지도 탭(tap)됨!')
+          if (e.domEvent) {
+            e.domEvent.preventDefault()
+            e.domEvent.stopPropagation()
+          }
+          const lat = e.coord.lat()
+          const lng = e.coord.lng()
+          console.log('📍 탭 좌표:', { lat, lng })
+          console.log('📞 onMapClick 함수 호출 중...(tap)')
+          onMapClick(lat, lng)
+          console.log('✅ onMapClick 함수 호출 완료 (tap)')
+          return false
+        })
       } else {
         console.log('❌ onMapClick이 없어서 지도 클릭 이벤트 등록 안됨')
       }
