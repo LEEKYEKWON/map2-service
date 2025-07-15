@@ -1,57 +1,69 @@
-<?xml version="1.0" encoding="UTF-8"?>
+import { NextResponse } from 'next/server'
+
+export async function GET() {
+  const baseUrl = 'https://map2.vercel.app'
+  
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://map2.vercel.app</loc>
+    <loc>${baseUrl}</loc>
     <lastmod>2025-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://map2.vercel.app/busking</loc>
+    <loc>${baseUrl}/busking</loc>
     <lastmod>2025-01-15</lastmod>
     <changefreq>hourly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://map2.vercel.app/community</loc>
+    <loc>${baseUrl}/community</loc>
     <lastmod>2025-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://map2.vercel.app/lesson</loc>
+    <loc>${baseUrl}/lesson</loc>
     <lastmod>2025-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://map2.vercel.app/event</loc>
+    <loc>${baseUrl}/event</loc>
     <lastmod>2025-01-15</lastmod>
     <changefreq>hourly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://map2.vercel.app/nayogi</loc>
+    <loc>${baseUrl}/nayogi</loc>
     <lastmod>2025-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://map2.vercel.app/garden</loc>
+    <loc>${baseUrl}/garden</loc>
     <lastmod>2025-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://map2.vercel.app/auth/login</loc>
+    <loc>${baseUrl}/auth/login</loc>
     <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://map2.vercel.app/auth/signup</loc>
+    <loc>${baseUrl}/auth/signup</loc>
     <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
-</urlset> 
+</urlset>`
+
+  return new NextResponse(sitemap, {
+    headers: {
+      'Content-Type': 'application/xml',
+    },
+  })
+} 
