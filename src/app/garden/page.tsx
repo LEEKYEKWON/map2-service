@@ -589,7 +589,7 @@ export default function GardenPage() {
 
         {/* 게시판 */}
         <div className="mt-8">
-          <PostBoard category="GARDEN" title="핫스팟 게시판" color="indigo" />
+          <PostBoard category="GARDEN" title="핫스팟" color="indigo" />
         </div>
       </div>
     </div>
