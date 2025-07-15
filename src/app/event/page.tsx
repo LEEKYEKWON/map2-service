@@ -581,12 +581,12 @@ export default function EventPage() {
                         console.log('현재 상태:', { showBusinessForm, showEventForm })
                         
                         if (showBusinessForm) {
-                          console.log('�� 매장 등록 폼 닫는 중...')
+                          console.log(' 매장 등록 폼 닫는 중...')
                           setShowBusinessForm(false)
                           setSelectedBusiness(null)
                           resetBusinessForm()
                         } else {
-                          console.log('�� 매장 등록 폼 여는 중...')
+                          console.log(' 매장 등록 폼 여는 중...')
                           console.log('변경될 상태:', { showBusinessForm: true, showEventForm: false })
                           setShowEventForm(false)
                           setShowBusinessForm(true)

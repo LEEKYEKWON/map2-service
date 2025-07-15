@@ -96,7 +96,7 @@ export default function NayogiPage() {
     }
   }, [moveToMarker])
 
-  // 🎯 나요기 등록 폼 표시 시 자동 스크롤
+  // �� 나요기 등록 폼 표시 시 자동 스크롤
   useEffect(() => {
     if (showForm) {
       setTimeout(() => {
