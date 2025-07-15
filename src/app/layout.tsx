@@ -18,14 +18,14 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://map2.vercel.app'),
+  metadataBase: new URL('https://map2-service.vercel.app'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     title: "Map2 - 실시간 위치정보 서비스",
     description: "버스킹, 커뮤니티, 레슨 등 다양한 실시간 위치정보를 네이버 지도에서 확인하세요",
-    url: 'https://map2.vercel.app',
+    url: 'https://map2-service.vercel.app',
     siteName: 'Map2',
     locale: 'ko_KR',
     type: 'website',
@@ -45,6 +45,9 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
+  },
+  other: {
+    'naver-site-verification': '4e6d48a4295fd6ac1779e2773e70b5983dd63084',
   },
 };
 
