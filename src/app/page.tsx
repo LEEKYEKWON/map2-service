@@ -18,9 +18,12 @@ export default function Home() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className={`text-center transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {/* 메인 제목 */}
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-            Map<span className="text-blue-600">2</span>
-          </h1>
+          <div className="flex items-end justify-center mb-6">
+            <img src="/logo.png" alt="Map2 로고" className="inline-block w-20 h-20 mr-1" />
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900">
+              Map<span className="text-blue-600">2</span>
+            </h1>
+          </div>
           
           {/* 서브 제목 */}
           <p className="text-xl md:text-2xl text-gray-600 mb-4">
