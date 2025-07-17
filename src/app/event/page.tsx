@@ -554,9 +554,10 @@ export default function EventPage() {
 
         {/* 알림 메시지 */}
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-6">
+          <div className="bg-yellow-300 border-2 border-yellow-500 text-red-800 text-lg font-bold px-4 py-4 rounded-lg mb-6 flex items-center animate-pulse shadow-lg">
+            <span className="mr-2 text-2xl">❗️</span>
             {error}
-            <button onClick={() => setError('')} className="float-right text-red-400 hover:text-red-600">×</button>
+            <button onClick={() => setError('')} className="ml-auto text-yellow-700 hover:text-red-600 text-2xl font-bold">×</button>
           </div>
         )}
         {success && (
@@ -575,31 +576,7 @@ export default function EventPage() {
                 <h3 className="text-lg font-semibold text-gray-900">실시간이벤트 지도</h3>
                 {isBusiness && (
                   <div className="flex space-x-2">
-                    <button
-                      onClick={() => {
-                        console.log('🔵 매장 등록 버튼 클릭됨!')
-                        console.log('현재 상태:', { showBusinessForm, showEventForm })
-                        
-                        if (showBusinessForm) {
-                          console.log(' 매장 등록 폼 닫는 중...')
-                          setShowBusinessForm(false)
-                          setSelectedBusiness(null)
-                          resetBusinessForm()
-                        } else {
-                          console.log(' 매장 등록 폼 여는 중...')
-                          console.log('변경될 상태:', { showBusinessForm: true, showEventForm: false })
-                          setShowEventForm(false)
-                          setShowBusinessForm(true)
-                        }
-                      }}
-                      className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                        showBusinessForm 
-                          ? 'bg-gray-300 text-gray-700 hover:bg-gray-400' 
-                          : 'bg-blue-600 text-white hover:bg-blue-700'
-                      }`}
-                    >
-                      {showBusinessForm ? '취소' : '+ 매장 등록'}
-                    </button>
+                    {/* 매장 등록 버튼 제거됨 */}
                     <button
                       onClick={() => {
                         if (myBusinesses.length === 0) {
