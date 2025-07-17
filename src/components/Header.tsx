@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useAuth } from '@/contexts/AuthContext'
+import { usePathname } from 'next/navigation'
 
 const NAV_MENUS = [
   { name: '버스킹', href: '/busking' },
@@ -16,6 +17,7 @@ const NAV_MENUS = [
 export default function Header() {
   const { user, logout } = useAuth()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-30">
@@ -28,7 +30,11 @@ export default function Header() {
           {/* PC 네비게이션 */}
           <nav className="hidden md:flex items-center space-x-6">
             {NAV_MENUS.map(menu => (
-              <Link key={menu.href} href={menu.href} className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+              <Link
+                key={menu.href}
+                href={menu.href}
+                className={`text-gray-700 hover:text-blue-600 font-medium transition-colors pb-1 ${pathname === menu.href ? 'border-b-2 border-blue-600 text-blue-600' : ''}`}
+              >
                 {menu.name}
               </Link>
             ))}
@@ -72,7 +78,7 @@ export default function Header() {
               <Link
                 key={menu.href}
                 href={menu.href}
-                className="text-gray-700 hover:text-blue-600 font-medium text-lg py-2 border-b border-gray-100 last:border-b-0"
+                className={`text-gray-700 hover:text-blue-600 font-medium text-lg py-2 border-b border-gray-100 last:border-b-0 ${pathname === menu.href ? 'border-b-2 border-blue-600 text-blue-600' : ''}`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {menu.name}
