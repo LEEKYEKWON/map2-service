@@ -557,6 +557,7 @@ export default function EventPage() {
           <div className="bg-yellow-300 border-2 border-yellow-500 text-red-800 text-lg font-bold px-4 py-4 rounded-lg mb-6 flex items-center animate-pulse shadow-lg">
             <span className="mr-2 text-2xl">❗️</span>
             {error}
+            <span className="ml-2 text-base font-normal text-gray-800">(매장 위치에 클릭 → 매장등록 폼이 나타납니다.)</span>
             <button onClick={() => setError('')} className="ml-auto text-yellow-700 hover:text-red-600 text-2xl font-bold">×</button>
           </div>
         )}
