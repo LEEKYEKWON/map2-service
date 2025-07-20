@@ -179,22 +179,28 @@ export default function NaverMap({
         window.navermap_authFailure = () => {
           console.error('네이버 지도 API 인증 실패: Client ID를 확인해주세요')
           setIsLoading(false)
+          setIsLoaded(false)
         }
       }
 
+      const clientId = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID || '6xglqifxeg'
+      console.log('🔑 네이버 지도 API 키:', clientId)
+
       const script = document.createElement('script')
       script.id = 'naver-map-script'
-      script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${process.env.NEXT_PUBLIC_NAVER_CLIENT_ID || '6xglqifxeg'}`
+      script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${clientId}`
       script.async = true
       
       script.onload = () => {
+        console.log('✅ 네이버 지도 스크립트 로딩 성공')
         setIsLoaded(true)
         setIsLoading(false)
       }
       
       script.onerror = () => {
-        console.error('네이버 지도 로딩 실패')
+        console.error('❌ 네이버 지도 로딩 실패')
         setIsLoading(false)
+        setIsLoaded(false)
       }
 
       document.head.appendChild(script)
@@ -268,7 +274,9 @@ export default function NaverMap({
       }
 
     } catch (error) {
-      console.error('지도 초기화 오류:', error)
+      console.error('❌ 지도 초기화 오류:', error)
+      setIsLoaded(false)
+      setIsLoading(false)
     }
   }, [isLoaded, isMounted])
 
