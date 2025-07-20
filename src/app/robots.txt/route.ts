@@ -7,7 +7,7 @@ Allow: /
 Disallow: /admin/
 Disallow: /api/
 
-Sitemap: https://map2.vercel.app/sitemap.xml`
+Sitemap: https://map2-service.vercel.app/sitemap.xml`
 
   return new NextResponse(robots, {
     headers: {
