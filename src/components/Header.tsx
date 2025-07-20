@@ -25,7 +25,7 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           {/* 로고 */}
           <Link href="/" className="flex-shrink-0">
-            <h1 className="text-2xl font-bold text-blue-600">Map2</h1>
+            <h2 className="text-2xl font-bold text-blue-600">Map2</h2>
           </Link>
           {/* PC 네비게이션 */}
           <nav className="hidden md:flex items-center space-x-6">
