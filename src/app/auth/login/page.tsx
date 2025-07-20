@@ -77,12 +77,14 @@ function LoginForm() {
         )}
 
         {/* 로그인 폼 */}
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6" autoComplete="on">
           {/* 이메일 */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">이메일</label>
             <input
               type="email"
+              name="email"
+              autoComplete="email"
               required
               value={formData.email}
               onChange={(e) => setFormData({...formData, email: e.target.value})}
@@ -96,6 +98,8 @@ function LoginForm() {
             <label className="block text-sm font-medium text-gray-700 mb-2">비밀번호</label>
             <input
               type="password"
+              name="password"
+              autoComplete="current-password"
               required
               value={formData.password}
               onChange={(e) => setFormData({...formData, password: e.target.value})}
