@@ -32,7 +32,7 @@ const nextConfig: NextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://openapi.map.naver.com https://oapi.map.naver.com https://ssl.pstatic.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://openapi.map.naver.com https://oapi.map.naver.com https://nid.naver.com; frame-src 'self' https://openapi.map.naver.com https://oapi.map.naver.com; form-action 'self';",
+            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' http: https:; style-src 'self' 'unsafe-inline' http: https:; font-src 'self' http: https:; img-src 'self' data: http: https:; connect-src 'self' http: https:; frame-src 'self' http: https:; form-action 'self';",
           },
         ],
       },
