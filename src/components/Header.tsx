@@ -6,12 +6,9 @@ import { useAuth } from '@/contexts/AuthContext'
 import { usePathname } from 'next/navigation'
 
 const NAV_MENUS = [
-  { name: '버스킹', href: '/busking' },
-  { name: '커뮤니티', href: '/community' },
-  { name: '레슨', href: '/lesson' },
-  { name: '실시간이벤트', href: '/event' },
-  { name: '나요기', href: '/nayogi' },
+  { name: '전국 축제', href: '/festival' },
   { name: '핫스팟', href: '/garden' },
+  { name: '실시간이벤트', href: '/event' },
 ]
 
 export default function Header() {

@@ -16,7 +16,7 @@ interface Post {
 }
 
 interface PostBoardProps {
-  category: 'BUSKING' | 'COMMUNITY' | 'LESSON' | 'EVENT' | 'NAYOGI' | 'GARDEN'
+  category: 'BUSKING' | 'FESTIVAL' | 'COMMUNITY' | 'LESSON' | 'EVENT' | 'NAYOGI' | 'GARDEN'
   title: string
   color: string
 }

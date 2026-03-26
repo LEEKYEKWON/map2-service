@@ -27,6 +27,7 @@ model User {
 
   // 관계
   buskingEvents     BuskingEvent[]
+  festivalEvents    FestivalEvent[]
   communityEvents   CommunityEvent[]
   lessonEvents      LessonEvent[]
   realtimeEvents    RealtimeEvent[]
@@ -44,6 +45,7 @@ enum UserRole {
 // 게시글 카테고리
 enum PostCategory {
   BUSKING
+  FESTIVAL
   COMMUNITY
   LESSON
   EVENT
@@ -58,6 +60,24 @@ model BuskingEvent {
   dateTime    DateTime
   description String
   imageUrl    String?
+  latitude    Float
+  longitude   Float
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// 전국 축제 (시작일·종료일, 종료 후 목록에서 숨김)
+model FestivalEvent {
+  id          String   @id @default(cuid())
+  name        String
+  startDate   DateTime
+  endDate     DateTime
+  description String
+  imageUrl    String?
+  linkUrl     String?
   latitude    Float
   longitude   Float
   userId      String

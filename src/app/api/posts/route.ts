@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 유효한 카테고리인지 확인
-    const validCategories = ['BUSKING', 'COMMUNITY', 'LESSON', 'EVENT', 'NAYOGI', 'GARDEN']
+    const validCategories = ['BUSKING', 'FESTIVAL', 'COMMUNITY', 'LESSON', 'EVENT', 'NAYOGI', 'GARDEN']
     if (!validCategories.includes(category)) {
       return NextResponse.json(
         { error: '유효하지 않은 카테고리입니다.' },
