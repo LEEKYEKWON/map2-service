@@ -90,7 +90,7 @@ export default function NaverMap({
       } else if (baseColor === 'purple') {
         markerColor = '#7C3AED' // 진한 보라색  
       } else if (baseColor === 'orange') {
-        markerColor = '#EA580C' // 진한 주황색
+        markerColor = '#2563EB' // 선택된 축제 마커 - 파란색
       } else {
         markerColor = '#FF0000' // 기본 빨간색
       }
