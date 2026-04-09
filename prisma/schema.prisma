@@ -195,6 +195,13 @@ model Hotspot {
   updatedAt   DateTime @updatedAt
 }
 
+// 일별 사이트 방문 집계 (한국 시간 기준 날짜 문자열, 브라우저 쿠키로 하루 1회만 증가)
+model DailyVisit {
+  id    String @id @default(cuid())
+  date  String @unique // YYYY-MM-DD (Asia/Seoul)
+  visits Int   @default(0)
+}
+
 // 게시판 (통합)
 model Post {
   id        String      @id @default(cuid())

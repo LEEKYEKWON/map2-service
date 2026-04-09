@@ -51,6 +51,8 @@ export default function AdminPage() {
     hotspot: 0
   })
 
+  const [dailyVisits, setDailyVisits] = useState<{ date: string; visits: number }[]>([])
+
   useEffect(() => {
     if (!user) {
       router.push('/auth/login')
@@ -109,10 +111,17 @@ export default function AdminPage() {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch(`/api/admin/stats?email=${user?.email}&role=${user?.role}`)
-      if (response.ok) {
-        const data = await response.json()
+      const [statsRes, visitsRes] = await Promise.all([
+        fetch(`/api/admin/stats?email=${user?.email}&role=${user?.role}`),
+        fetch(`/api/admin/visits?email=${user?.email}&role=${user?.role}&days=30`)
+      ])
+      if (statsRes.ok) {
+        const data = await statsRes.json()
         setStats(data)
+      }
+      if (visitsRes.ok) {
+        const v = await visitsRes.json()
+        setDailyVisits(v.visits || [])
       }
     } catch (error) {
       console.error('통계 조회 실패:', error)
@@ -470,6 +479,40 @@ export default function AdminPage() {
             <p className="text-xl font-bold text-red-600">{stats.totalHotspot}</p>
           </div>
         </div>
+
+            {/* 일별 방문 (최근 30일, 한국 시간 · 브라우저당 하루 1회 집계) */}
+            <div className="mt-8 bg-white rounded-lg shadow-sm">
+              <div className="px-6 py-4 border-b border-gray-200">
+                <h3 className="text-lg font-medium text-gray-900">일별 방문자 수</h3>
+                <p className="text-sm text-gray-500 mt-1">
+                  최근 30일 · 한국 시간 기준 · 동일 브라우저는 하루에 한 번만 집계됩니다.
+                </p>
+              </div>
+              <div className="p-6 overflow-x-auto">
+                {dailyVisits.length === 0 ? (
+                  <p className="text-sm text-gray-500">
+                    아직 집계된 데이터가 없습니다. 데이터베이스에 일별 방문 테이블이 반영된 뒤, 방문이 있으면 날짜별로 표시됩니다.
+                  </p>
+                ) : (
+                  <table className="min-w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-gray-200 text-left text-gray-600">
+                        <th className="py-2 pr-4 font-medium">날짜</th>
+                        <th className="py-2 font-medium">방문(추정)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {dailyVisits.map((row) => (
+                        <tr key={row.date} className="border-b border-gray-100">
+                          <td className="py-2 pr-4 text-gray-900">{row.date}</td>
+                          <td className="py-2 text-gray-900">{row.visits}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
+            </div>
 
             {/* 최근 활동 */}
             <div className="mt-8 bg-white rounded-lg shadow-sm">
