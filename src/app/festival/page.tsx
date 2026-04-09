@@ -38,6 +38,7 @@ export default function FestivalPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  const [listSearchQuery, setListSearchQuery] = useState('')
 
   const isAdmin = user?.role === 'ADMIN'
 
@@ -244,6 +245,17 @@ export default function FestivalPage() {
     color: 'orange' as const
   }))
 
+  const filteredEvents = events.filter((event) => {
+    const query = listSearchQuery.trim().toLowerCase()
+    if (!query) return true
+    return (
+      event.name.toLowerCase().includes(query) ||
+      event.description.toLowerCase().includes(query) ||
+      event.user.name.toLowerCase().includes(query) ||
+      (event.linkUrl || '').toLowerCase().includes(query)
+    )
+  })
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -307,6 +319,7 @@ export default function FestivalPage() {
                 tempMarker={tempMarker}
                 onTempMarkerClick={handleTempMarkerClick}
                 onSearchResultSelect={isAdmin ? handleSearchResultSelect : undefined}
+                showAddressSearch={isAdmin}
                 height="500px"
               />
 
@@ -446,16 +459,31 @@ export default function FestivalPage() {
           </div>
 
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-lg p-4">
+            <div className="bg-white rounded-lg shadow-lg p-4 h-[572px] flex flex-col">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">축제 목록 ({events.length})</h3>
-              <div className="space-y-3 max-h-[520px] overflow-y-auto">
-                {events.length === 0 ? (
+              <div className="mb-3">
+                <input
+                  type="text"
+                  value={listSearchQuery}
+                  onChange={(e) => setListSearchQuery(e.target.value)}
+                  placeholder="축제명/설명/작성자/링크 검색"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+                />
+              </div>
+              <div className="space-y-3 flex-1 min-h-0 overflow-y-auto">
+                {filteredEvents.length === 0 ? (
                   <div className="text-center py-8 text-gray-500">
-                    <p>표시할 축제가 없습니다.</p>
-                    <p className="text-sm mt-2">종료된 일정은 목록에 나오지 않습니다.</p>
+                    {events.length === 0 ? (
+                      <>
+                        <p>표시할 축제가 없습니다.</p>
+                        <p className="text-sm mt-2">종료된 일정은 목록에 나오지 않습니다.</p>
+                      </>
+                    ) : (
+                      <p>검색 결과가 없습니다.</p>
+                    )}
                   </div>
                 ) : (
-                  events.map((event) => (
+                  filteredEvents.map((event) => (
                     <div
                       key={event.id}
                       id={`event-${event.id}`}

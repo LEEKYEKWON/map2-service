@@ -32,6 +32,7 @@ interface NaverMapProps {
   onTempMarkerClick?: () => void // 임시 마커 클릭 핸들러
   // 검색 결과에서 마커 등록을 위한 콜백
   onSearchResultSelect?: (lat: number, lng: number, address: string) => void
+  showAddressSearch?: boolean
 }
 
 declare global {
@@ -51,7 +52,8 @@ export default function NaverMap({
   onMoveComplete,
   tempMarker,
   onTempMarkerClick,
-  onSearchResultSelect
+  onSearchResultSelect,
+  showAddressSearch = true
 }: NaverMapProps) {
   const mapRef = useRef<HTMLDivElement>(null)
   const naverMapRef = useRef<any>(null)
@@ -632,6 +634,7 @@ export default function NaverMap({
       />
 
       {/* 주소 검색창 */}
+      {showAddressSearch && (
       <div className="absolute top-4 left-4 right-4 z-10">
         <div className="bg-white rounded-lg shadow-lg p-3">
           <div className="flex items-center space-x-2">
@@ -742,6 +745,7 @@ export default function NaverMap({
           </div>
         )}
       </div>
+      )}
 
       {/* 현재 위치 버튼 */}
       <button

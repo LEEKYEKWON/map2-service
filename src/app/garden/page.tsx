@@ -27,6 +27,7 @@ export default function GardenPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  const [listSearchQuery, setListSearchQuery] = useState('')
 
   const [formData, setFormData] = useState({
     name: '',
@@ -226,6 +227,16 @@ export default function GardenPage() {
     color: 'blue'
   }))
 
+  const filteredHotspots = hotspots.filter((item) => {
+    const query = listSearchQuery.trim().toLowerCase()
+    if (!query) return true
+    return (
+      item.name.toLowerCase().includes(query) ||
+      (item.description || '').toLowerCase().includes(query) ||
+      (item.linkUrl || '').toLowerCase().includes(query)
+    )
+  })
+
   // 선택된 아이템으로 자동 스크롤
   useEffect(() => {
     if (selectedItem) {
@@ -330,6 +341,7 @@ export default function GardenPage() {
                 tempMarker={tempMarker}
                 onTempMarkerClick={handleTempMarkerClick}
                 onSearchResultSelect={handleSearchResultSelect}
+                showAddressSearch={isAdmin}
                 height="500px"
               />
 
@@ -367,22 +379,41 @@ export default function GardenPage() {
 
           {/* 리스트 영역 (1/3) */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-lg p-4">
+            <div className="bg-white rounded-lg shadow-lg p-4 h-[572px] flex flex-col">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-semibold text-gray-900">
                   핫스팟 목록 ({hotspots.length}개)
                 </h3>
               </div>
+              <div className="mb-3 rounded-lg border border-blue-200 bg-blue-50 px-3 py-2 text-xs text-blue-800">
+                <p>정확한 주소가 없는 곳은 가까운 건물이나 도로상의 주소를 기재하였으니 참고만 해주세요.</p>
+                <p className="mt-1">지도에 표기된 마커의 위치가 정확한 위치입니다.</p>
+              </div>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  value={listSearchQuery}
+                  onChange={(e) => setListSearchQuery(e.target.value)}
+                  placeholder="핫스팟명/설명/링크 검색"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
               
-              <div className="space-y-3 max-h-[520px] overflow-y-auto">
-                {hotspots.length === 0 ? (
+              <div className="space-y-3 flex-1 min-h-0 overflow-y-auto">
+                {filteredHotspots.length === 0 ? (
                   <div className="text-center py-8 text-gray-500">
-                    <div className="mb-2">🗺️</div>
-                    <p>등록된 핫스팟이 없습니다.</p>
-                    {isAdmin && <p className="text-sm">지도를 클릭해서 첫 번째 핫스팟을 등록해보세요!</p>}
+                    {hotspots.length === 0 ? (
+                      <>
+                        <div className="mb-2">🗺️</div>
+                        <p>등록된 핫스팟이 없습니다.</p>
+                        {isAdmin && <p className="text-sm">지도를 클릭해서 첫 번째 핫스팟을 등록해보세요!</p>}
+                      </>
+                    ) : (
+                      <p>검색 결과가 없습니다.</p>
+                    )}
                   </div>
                 ) : (
-                  hotspots.map((item) => (
+                  filteredHotspots.map((item) => (
                     <div
                       key={item.id}
                       id={`item-${item.id}`}
