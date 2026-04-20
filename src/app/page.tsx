@@ -32,13 +32,14 @@ export default function Home() {
           
           {/* 설명 */}
           <p className="text-lg text-gray-500 mb-12 max-w-2xl mx-auto">
-            네이버 지도에서 찾을 수 없는 유동적인 위치정보를<br />
-            지도에서 한눈에 확인하세요
+            어디 갈지 고민될 때, Map2 지도에서 바로 확인하세요.
+            <br />
+            ⭐ 정보탭의 관련 링크를 꼭 눌러보기! ⭐
           </p>
 
           {/* 메뉴 소개 섹션 */}
           <div className={`transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* 서비스 카드들 */}
 
               {/* 전국 축제 - 활성화 */}
@@ -69,19 +70,6 @@ export default function Home() {
                 </div>
               </Link>
 
-              {/* 실시간이벤트 - 활성화 */}
-              <Link href="/event" className="block">
-                <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-red-200">
-                  <div className="flex items-center justify-center mb-2">
-                    <svg className="w-5 h-5 text-red-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                    <h3 className="text-xl font-semibold text-gray-900">실시간이벤트</h3>
-                  </div>
-                  <p className="text-gray-600">실시간 이벤트 정보, 지도에서 한눈에!</p>
-                  <div className="mt-3 text-sm text-red-600 font-semibold">준비중</div>
-                </div>
-              </Link>
             </div>
           </div>
         </div>

@@ -8,7 +8,6 @@ import { usePathname } from 'next/navigation'
 const NAV_MENUS = [
   { name: '전국 축제', href: '/festival' },
   { name: '핫스팟', href: '/garden' },
-  { name: '실시간이벤트', href: '/event' },
 ]
 
 export default function Header() {
